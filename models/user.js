@@ -18,7 +18,17 @@ userSchema.methods.generateAuthToken = function() {
 const User = mongoose.model('user',userSchema);
 
 const validate = (data) => {
+    const schema = Joi.object({
+        firstName: Joi.string().min(3).max(30).required().label("First Name"),
+        lastName: Joi.string().min(3).max(30).required().label("Last Name"),
+        email: Joi.string().required().label("Email"),
+        password: passwordComplexity().required().label("Password"),
+    });
+
+    return schema.validate(data);
 }
 
+module.exports ={User,validate};
 
-https://www.youtube.com/watch?v=HGgyd1bYWsE - 7.36
+
+//https://www.youtube.com/watch?v=HGgyd1bYWsE - 7.36
